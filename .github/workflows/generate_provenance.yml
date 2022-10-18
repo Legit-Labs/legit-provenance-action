@@ -27,7 +27,6 @@ jobs:
       provenance-sha256: ${{ steps.sign-prov.outputs.provenance-sha256 }}
       provenance-name: ${{ steps.sign-prov.outputs.provenance-name }}
     runs-on: ubuntu-latest
-    needs: [detect-env]
     permissions:
       id-token: write # Needed to create an OIDC token for keyless signing.
       contents: read
