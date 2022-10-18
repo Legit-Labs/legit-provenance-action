@@ -15,6 +15,11 @@ on:
         description: "Artifacts for which to generate provenance, formatted the same as the output of sha256sum (SHA256 NAME\\n[...]) and base64 encoded."
         required: true
         type: string
+    secrets:
+      api-token:
+        required: true
+      legit-api-url:
+        required: true
 
   # TODO delete
   workflow_dispatch:
@@ -66,7 +71,7 @@ jobs:
           GITHUB_CONTEXT: "${{ toJSON(github) }}"
           SUBJECTS: "${{ inputs.base64-subjects }}"
         run: |
-          ${GENERATOR_BINARY} --subjects "${SUBJECTS}" > "${PROVENANCE_PATH}"
+          ${GENERATOR_BINARY} -subjects-base64 "${SUBJECTS}" -api-token "${{ secrets.api-token }}" -api-url "${{ secrets.legit-api-url }}" > "${PROVENANCE_PATH}"
 
       - name: Upload the signed provenance
         uses: actions/upload-artifact@3cea5372237819ed00197afe530f5a7ea3e805c8 # tag=v3.1.0
