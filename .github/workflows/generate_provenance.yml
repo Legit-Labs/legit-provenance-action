@@ -22,19 +22,6 @@ on:
         required: true
 
 jobs:
-  # detect-env detects the reusable workflow's repository and ref for use later
-  # in the workflow.
-  detect-env:
-    outputs:
-      repository: ${{ steps.detect.outputs.repository }}
-      ref: ${{ steps.detect.outputs.ref }}
-    runs-on: ubuntu-latest
-    permissions:
-      id-token: write # Needed to detect the current reusable repository and ref.
-    steps:
-      - name: Detect the generator ref
-        uses: slsa-framework/slsa-github-generator/.github/actions/detect-workflow@efb47d340c150ce456bf8bd554a131ac53b10ccd
-
   generator:
     outputs:
       provenance-sha256: ${{ steps.sign-prov.outputs.provenance-sha256 }}
@@ -46,11 +33,6 @@ jobs:
       contents: read
       actions: read # Needed to read workflow info.
     steps:
-      - uses: actions/checkout@v3
-        with:
-          repository: "${{ needs.detect-env.outputs.repository }}"
-          ref: "${{ needs.detect-env.outputs.ref }}"
-      
       - uses: actions/setup-go@v3
       
       - name: Generate binary
