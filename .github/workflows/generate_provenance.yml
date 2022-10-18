@@ -21,14 +21,6 @@ on:
       legit-api-url:
         required: true
 
-  # TODO delete
-  workflow_dispatch:
-    inputs:
-      base64-subjects:
-        description: "Artifacts for which to generate provenance, formatted the same as the output of sha256sum (SHA256 NAME\\n[...]) and base64 encoded."
-        required: true
-        type: string
-
 jobs:
   # detect-env detects the reusable workflow's repository and ref for use later
   # in the workflow.
