@@ -54,8 +54,14 @@ jobs:
       - uses: actions/setup-go@v3
       
       - name: Generate binary
+        env:
+          LEGIT_ATTESTATION_COMMIT: 87266eb7efe95d032ea7fd51a8b49d5d8b3228e2
         run: |
-          cd cmd/legit_provenance_action && go build -o "${GENERATOR_BINARY}"
+          git clone --no-checkout https://github.com/Legit-Labs/legit-attestation.git
+          cd legit-attestation
+          git checkout "${LEGIT_ATTESTATION_COMMIT}"
+          cd /cmd/legit_remote_attest
+          go build -o "${GENERATOR_BINARY}"
 
       - name: Create and sign provenance
         id: sign-prov
@@ -63,7 +69,7 @@ jobs:
           GITHUB_CONTEXT: "${{ toJSON(github) }}"
           SUBJECTS: "${{ inputs.base64-subjects }}"
         run: |
-          ${GENERATOR_BINARY} -subjects-base64 "${SUBJECTS}" -api-token "${{ secrets.api-token }}" -api-url "${{ secrets.legit-api-url }}" > "${PROVENANCE_PATH}"
+          ${GENERATOR_BINARY} -subjects-base64 "${SUBJECTS}" -api-token "${{ secrets.api-token }}" -url "${{ secrets.legit-api-url }}" > "${PROVENANCE_PATH}"
 
       - name: Upload the signed provenance
         uses: actions/upload-artifact@3cea5372237819ed00197afe530f5a7ea3e805c8 # tag=v3.1.0
