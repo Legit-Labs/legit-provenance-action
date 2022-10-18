@@ -41,7 +41,7 @@ jobs:
           git clone --no-checkout https://github.com/Legit-Labs/legit-attestation.git
           cd legit-attestation
           git checkout "${LEGIT_ATTESTATION_COMMIT}"
-          cd /cmd/legit_remote_attest
+          cd cmd/legit_remote_attest
           go build -o "${GENERATOR_BINARY}"
 
       - name: Create and sign provenance
