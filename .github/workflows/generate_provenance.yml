@@ -36,7 +36,7 @@ jobs:
       
       - name: Generate binary
         env:
-          LEGIT_ATTESTATION_COMMIT: 87266eb7efe95d032ea7fd51a8b49d5d8b3228e2
+          LEGIT_ATTESTATION_COMMIT: 5c74078fd35e16558099428fa0252f8790b1fa5c
         run: |
           git clone --no-checkout https://github.com/Legit-Labs/legit-attestation.git
           cd legit-attestation
