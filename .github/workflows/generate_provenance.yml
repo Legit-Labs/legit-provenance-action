@@ -36,12 +36,12 @@ jobs:
       
       - name: Generate binary
         env:
-          LEGIT_ATTESTATION_COMMIT: 5c74078fd35e16558099428fa0252f8790b1fa5c
+          LEGIT_REMOTE_PROVENANCE_COMMIT: b6c4db20cbbe9ec7d723c34eaae86f1195bef731
         run: |
-          git clone --no-checkout https://github.com/Legit-Labs/legit-attestation.git
-          cd legit-attestation
-          git checkout "${LEGIT_ATTESTATION_COMMIT}"
-          cd cmd/legit_remote_attest
+          git clone --no-checkout https://github.com/Legit-Labs/legit-remote-provenance.git
+          cd legit-remote-provenance
+          git checkout "${LEGIT_REMOTE_PROVENANCE_COMMIT}"
+          cd cmd/legit_remote_provenance
           go build -o "${GENERATOR_BINARY}"
 
       - name: Create and sign provenance
