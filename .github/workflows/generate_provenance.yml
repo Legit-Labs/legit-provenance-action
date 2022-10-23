@@ -6,7 +6,7 @@ permissions:
 env:
   GENERATOR_BINARY: /tmp/provenance-generator
   PROVENANCE_NAME: legit-provenance.intoto.jsonl
-  PROVENANCE_PATH: /tmp/signed-prov.intoto.jsonl
+  PROVENANCE_PATH: /tmp/legit-provenance.intoto.jsonl
 
 on:
   workflow_call:
